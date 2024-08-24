@@ -1,9 +1,9 @@
-const express = require('express');
-const router = express.Router();
+import { Router } from 'express';
+import moviesRoutes from './movies.js';
 
-const moviesRoutes = require('./movies');
+const router = Router();
 
 router.use('/movies', moviesRoutes);
 
 
-module.exports = router;
+export default router;
