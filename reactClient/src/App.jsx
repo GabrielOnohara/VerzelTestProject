@@ -2,26 +2,28 @@ import verzelLogo from "./assets/logo2.jpg";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Button from "react-bootstrap/Button";
+import { useNavigate } from "react-router-dom";
 
 function App() {
+  const navigate = useNavigate();
+  const goToLogin = () => {
+    navigate("/login");
+  };
+
   return (
     <div className="root">
       <div>
         <img src={verzelLogo} className="logo my-4" alt="Verzel Movies logo" />
       </div>
       <h1 className="mb-4">Verzel Movies</h1>
-      <div className="">
-        <Button
+      <Button
           size="lg"
-          variant="light"
+          variant="outline-light"
           className="px-4 mt-2"
-          onClick={() => {
-            console.log("clicou em acessar");
-          }}
+          onClick={goToLogin}
         >
           Acessar
         </Button>
-      </div>
       <p className="read-the-docs my-3">
         Clique em acessar para iniciar sua jornada no mundo dos filmes
       </p>
