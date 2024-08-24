@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
-import verzelLogo from "../assets/logo2.jpg";
+import verzelLogo from "../../assets/logo2.jpg";
 import "./NotFound.css";
 
 function NotFound() {
