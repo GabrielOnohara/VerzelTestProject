@@ -5,17 +5,20 @@ import './index.css'
 
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login from './login/Login.jsx';
+import NotFound from './not_found/NotFound.jsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App/>,
-    children: [
-      {
-        path: '/login/',
-        element: <Login/>
-      }
-    ]
+  },
+  {
+    path: 'login',
+    element: <Login/>
+  },
+  {
+    path: '*',
+    element: <NotFound />
   }
 ])
 
