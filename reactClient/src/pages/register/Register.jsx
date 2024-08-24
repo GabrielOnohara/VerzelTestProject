@@ -1,7 +1,7 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -14,12 +14,16 @@ function Register() {
 
   const { user, token, auth, login } = useContext(UserContext);
 
+  const goToHome = useCallback(() => {
+    navigate('/home')
+  },[ navigate ])
+
   useEffect(() => {
     if (user || token)
         setTimeout(() => {
-            navigate("/home");
+          goToHome()
         }, 1000)
-  }, [user, token, navigate]);
+  }, [user, token, goToHome]);
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");

@@ -1,17 +1,45 @@
-import {useContext} from 'react'
+import { useContext } from "react";
 
-import {UserContext} from "../../contexts/UserContext";
+import { UserContext } from "../../contexts/UserContext";
+import { useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+
+import verzelLogo from "../../assets/logo2.jpg";
+
 const Home = () => {
+  const navigate = useNavigate();
+  const goToLogin = () => {
+    navigate("/login");
+  };
 
-  const { user, token } = useContext(UserContext);
-  
+  const { user, token, tokenWasValidated } = useContext(UserContext);
+
+  if(!tokenWasValidated)
+    return <>
+      <div>
+        <img src={verzelLogo} className="logo2 my-4" alt="Verzel Movies logo" />
+      </div>
+      <h1>Validando token..</h1>
+    </>
+
+  if(!token)
+    return <>
+        <>
+        <img src={verzelLogo} className="logo2 my-4" alt="Verzel Movies logo" />
+          <h1>Seu Token Expirou</h1>
+          <Button onClick={goToLogin}></Button>
+       </>
+    </>
+
   return (
-    <div>
-      Home
-      <p>{token}</p>
-      {user && (<p> {user.username} </p>) }
-    </div>
-  )
-}
+    <>
+      <div className="container-sm">
+        <h1>Home</h1>
+        <p className="text-break mx-auto" style={{width: '50%'}}>{token}</p>
+        {user && <p> {user.username} </p>}
+      </div>
+    </>
+  );
+};
 
-export default Home
+export default Home;
