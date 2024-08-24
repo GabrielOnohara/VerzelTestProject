@@ -5,7 +5,58 @@ const router = Router();
 
 router.get('/', async (req, res) => {  
   try {
-    const response = await axios.get(process.env.TMDB_URL+`movie/550`+`?api_key=${process.env.TMDB_TOKEN}`)
+    const response = await axios.get(
+      process.env.TMDB_URL+`movies/550`+`?api_key=${process.env.TMDB_TOKEN}`
+    )
+    const data = response.data
+    res.json(data)
+  } catch (error) {
+    res.status(500).json({message: error})
+  }
+});
+
+router.get('/popular', async (req, res) => {  
+  try {
+    const response = await axios.get(
+      process.env.TMDB_URL + `/movie/popular?language=en-US&page=1`+`&api_key=${process.env.TMDB_TOKEN}`
+    )
+    const data = response.data
+    res.json(data)
+  } catch (error) {
+    res.status(500).json({message: error})
+  }
+});
+
+router.get('/upcoming', async (req, res) => {  
+  try {
+    const response = await axios.get(
+      process.env.TMDB_URL + `/movie/popular?language=en-US&page=1`+`&api_key=${process.env.TMDB_TOKEN}`
+    )
+    const data = response.data
+    res.json(data)
+  } catch (error) {
+    res.status(500).json({message: error})
+  }
+});
+
+router.get('/top_rated', async (req, res) => {  
+  try {
+    const response = await axios.get(
+      process.env.TMDB_URL + `/movie/top_rated?language=en-US&page=1`+`&api_key=${process.env.TMDB_TOKEN}`
+    )
+    const data = response.data
+    res.json(data)
+  } catch (error) {
+    res.status(500).json({message: error})
+  }
+});
+
+
+router.get('/now_playing', async (req, res) => {  
+  try {
+    const response = await axios.get(
+      process.env.TMDB_URL + `/movie/now_playing?language=en-US&page=1`+`&api_key=${process.env.TMDB_TOKEN}`
+    )
     const data = response.data
     res.json(data)
   } catch (error) {
