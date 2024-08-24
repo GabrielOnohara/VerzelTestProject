@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import verzelLogo from './assets/logo2.jpg'
 import './App.css'
 import Button from 'react-bootstrap/Button';
@@ -9,7 +7,7 @@ function App() {
   return (
     <>
       <div>
-        <img src={verzelLogo} className="logo" alt="Vite logo" />
+        <img src={verzelLogo} className="logo" alt="Verzel Movies logo" />
       </div>
       <h1>Verzel Movies</h1>
       <div className="card">
