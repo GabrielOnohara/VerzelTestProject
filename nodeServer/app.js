@@ -11,10 +11,6 @@ const port = process.env.PORT || 5000;
 const mongoURI = process.env.MONGO_URI;
 let mongoIsRunning = false
 
-mongoose.connect(mongoURI)
-  .then(() => mongoIsRunning = true)
-  .catch((err) => console.error('MongoDB connection error:', err));
-
 app.use(express.json()); 
 app.use(cors())
 
@@ -27,6 +23,13 @@ app.get("/", (req, res) => {
   );
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+mongoose.connect(mongoURI)
+  .then(() => {
+    mongoIsRunning = true
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port} and Mongo is ${mongoIsRunning ? 'connected' : 'desconnected'}`);
+    });
+    
+  })
+  .catch((err) => console.error('MongoDB connection error:', err));
+
