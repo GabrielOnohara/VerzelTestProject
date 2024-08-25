@@ -56,9 +56,7 @@ function Login() {
       });
 
       toast.success("Usuário logado com sucesso");
-      setTimeout(() => {
-        goToHome()
-      }, 1000);
+      goToHome()
     } catch (error) {
       if (error.response?.data?.message) {
         toast.error(`Erro: ${error.response.data.message}`);
@@ -73,12 +71,12 @@ function Login() {
   return (
     <div className="login">
       <div>
-        <img src={verzelLogo} className="logo2 mb-4" alt="Verzel Movies logo" />
+        <img src={verzelLogo} className="logo2 mt-5 mb-4" alt="Verzel Movies logo" />
       </div>
 
       {user || token ? (
         <>
-          <h1 className="read-the-docs my-3 fs-3">
+          <h1 className="read-the-docs mt-3 fs-3">
             Detectamos um usuário logado!
           </h1>
           <p className="text-bold">
@@ -87,7 +85,7 @@ function Login() {
         </>
       ) : (
         <>
-          <Form className="my-4" onSubmit={handleSubmit}>
+          <Form className="" onSubmit={handleSubmit}>
             <Form.Group
               className="mb-1 text-start"
               controlId="formBasicUsername"
@@ -96,7 +94,7 @@ function Login() {
                 Nome de usuário
               </Form.Label>
               <Form.Control
-                className="mb-3"
+                className="mb-2"
                 type="username"
                 placeholder="Digite seu nome de usuário"
                 onChange={(e)=> {setUsername(e.target.value)}}
@@ -109,7 +107,7 @@ function Login() {
             >
               <Form.Label className="fw-bold fs-3 mb-1">Senha</Form.Label>
               <Form.Control
-                className="mb-3"
+                className="mb-2"
                 type="password"
                 placeholder="Digite sua senha"
                 onChange={(e)=> {setPassword(e.target.value)}}
@@ -118,7 +116,7 @@ function Login() {
             </Form.Group>
             <Button
               variant="outline-light"
-              className="mt-1 mb-5 entry"
+              className="entry"
               size="lg"
               type="submit"
               disabled={loading}
@@ -126,7 +124,7 @@ function Login() {
               {(user || token) ? 'Redirecionando': loading ? 'Validando..' : 'Entrar'}
             </Button>
           </Form>
-          <Button onClick={goToRegister} variant="link" className="text-light">
+          <Button onClick={goToRegister} variant="link" className="text-light mt-4">
             Não possui conta ainda?
           </Button>
         </>

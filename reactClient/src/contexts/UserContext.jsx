@@ -13,6 +13,7 @@ function UserProvider({ children }) {
   const auth = (tokenData) => {
     setToken(tokenData);
     localStorage.setItem("authToken", tokenData);
+    setTokenWasValidated(true)
   };
 
   const login = (userData) => {
