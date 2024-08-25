@@ -10,6 +10,7 @@ import NavBar from "./NavBar";
 import MovieCard from "./MovieCard";
 import MoviePagination from "./MoviePagination";
 import MoviesMenu from "./MoviesMenu";
+import MovieModal from "./MovieModal";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -28,7 +29,10 @@ const Home = () => {
     displayMoviesTotalPages,
     doSearchMovies,
     search,
-    changeSearch
+    changeSearch,
+    showModal,
+    changeModal,
+    changeModalMovie,
   } = useContext(MovieContext);
 
   if (!tokenWasValidated && token)
@@ -60,6 +64,7 @@ const Home = () => {
 
   return (
     <div className="home pt-4">
+      <MovieModal showModal={showModal} changeModal={changeModal} />
       <NavBar user={user} />
       <Container className="homeContent pt-5">
         <MoviesMenu
@@ -85,7 +90,11 @@ const Home = () => {
             ) : (
               Array((displayMovies || []).length > 0) &&
               (displayMovies || []).map((movie, index) => (
-                <MovieCard key={index} movie={movie} />
+                <MovieCard
+                  key={index}
+                  movie={movie}
+                  changeModalMovie={changeModalMovie}
+                />
               ))
             )}
           </Row>

@@ -14,7 +14,7 @@ const MovieContext = createContext();
 function MovieProvider({ children }) {
   const [loadingMovies, setLoadingMovies] = useState(false);
   const [typeMovies, setTypeMovies] = useState("popular");
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [displayMovies, setDisplayMovies] = useState([]);
   const [displayMoviesTotalPages, setDisplayMoviesTotalPages] = useState(0);
@@ -30,12 +30,29 @@ function MovieProvider({ children }) {
   const [nowPlayingMoviesTotalPages, setNowPlayingMoviesTotalPages] =
     useState(0);
 
+  const [showModal, setShowModal] = useState(false);
+  const [modalMovie, setModalMovie] = useState(null);
+
   const { token, tokenWasValidated } = useContext(UserContext);
 
+  const changeModal = (newValue) => {
+    setShowModal(newValue);
+  };
+
+  const changeModalMovie = (movie) => {
+    if (movie) {
+      setModalMovie(movie);
+      changeModal(true);
+    } else {
+      setModalMovie(null);
+      changeModal(false);
+    }
+  };
+
   const changeSearch = (newSearch) => {
-    setSearch(newSearch)
-  }
-  
+    setSearch(newSearch);
+  };
+
   const changeType = useCallback(
     (type) => {
       setTypeMovies(type);
@@ -60,7 +77,7 @@ function MovieProvider({ children }) {
             break;
           case "search":
             setDisplayMovies(searchMovies);
-            setDisplayMoviesTotalPages(searchMoviesTotalPages)
+            setDisplayMoviesTotalPages(searchMoviesTotalPages);
             break;
           default:
             break;
@@ -78,39 +95,43 @@ function MovieProvider({ children }) {
       topRatedMoviesTotalPages,
       nowPlayingMoviesTotalPages,
       searchMovies,
-      searchMoviesTotalPages
+      searchMoviesTotalPages,
     ]
   );
 
   const doSearchMovies = useCallback(
     async (page = 1) => {
-        setLoadingMovies(true);
-        if (!tokenWasValidated) {
-            return;
+      setLoadingMovies(true);
+      if (!tokenWasValidated) {
+        return;
+      }
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/movies/search?query=${search}&page=${
+            page > 0 ? page : 1
+          }`,
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+
+        const { results, total_pages } = response.data;
+        if (Array(results).length > 0) {
+          setSearchMovies(results);
+          setSearchMoviesTotalPages(total_pages - 1);
         }
-        try {
-            const response = await axios.get(
-              `http://localhost:5000/movies/search?query=${search}&page=${page > 0 ? page : 1}`,
-              {
-                headers: {
-                  Authorization: "Bearer " + token,
-                },
-              }
-            );
-    
-            const { results, total_pages } = response.data;
-            if (Array(results).length > 0) {
-                setSearchMovies(results);
-                setSearchMoviesTotalPages(total_pages - 1);
-            }
-        } catch(error){
-            setSearchMovies([])
-            console.error(error);
-        } finally {
-            setLoadingMovies(false);
-            changeType('search')
-        }   
-    },[tokenWasValidated, token, changeType, search])
+      } catch (error) {
+        setSearchMovies([]);
+        console.error(error);
+      } finally {
+        setLoadingMovies(false);
+        changeType("search");
+      }
+    },
+    [tokenWasValidated, token, changeType, search]
+  );
 
   const fetchMovies = useCallback(
     async (page = 1, type) => {
@@ -194,16 +215,16 @@ function MovieProvider({ children }) {
     (newPage) => {
       if (newPage != page) {
         if (newPage <= 0) {
-          if(typeMovies == 'search'){
-            doSearchMovies(newPage)
+          if (typeMovies == "search") {
+            doSearchMovies(newPage);
           } else {
             fetchMovies(newPage, typeMovies);
           }
           setPage(displayMoviesTotalPages);
         } else {
           if (newPage <= displayMoviesTotalPages) {
-            if(typeMovies == 'search'){
-              doSearchMovies(newPage)
+            if (typeMovies == "search") {
+              doSearchMovies(newPage);
             } else {
               fetchMovies(newPage, typeMovies);
             }
@@ -239,7 +260,11 @@ function MovieProvider({ children }) {
         displayMoviesTotalPages,
         doSearchMovies,
         search,
-        changeSearch
+        changeSearch,
+        showModal,
+        changeModal,
+        modalMovie,
+        changeModalMovie,
       }}
     >
       {children}
