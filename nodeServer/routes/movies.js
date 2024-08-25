@@ -26,6 +26,17 @@ const getMovieData = async (type, page) => {
   }
 };
 
+const searchMovieData = async (query, page) => {
+  try {
+    const response = await axios.get(
+      `${process.env.TMDB_URL}/search/movie?query=${query}&page=${page}language=en-US&api_key=${process.env.TMDB_TOKEN}`
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response ? error.response.data.message : error.message);
+  }
+};
+
 router.get('/popular', authenticateToken, async (req, res) => {
   const page = req.query.page || 1;
   try {
@@ -60,6 +71,17 @@ router.get('/now_playing', authenticateToken, async (req, res) => {
   const page = req.query.page || 1;
   try {
     const data = await getMovieData('now_playing', page);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.get('/search', authenticateToken, async (req, res) => {
+  const page = req.query.page || 1;
+  const query = req.query.query || '';
+  try {
+    const data = await searchMovieData(query, page);
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });

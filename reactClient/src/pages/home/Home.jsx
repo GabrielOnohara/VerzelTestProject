@@ -1,11 +1,6 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Button,
-  Container,
-  Row,
-  Col,
-} from "react-bootstrap";
+import { Button, Container, Row, Col } from "react-bootstrap";
 
 import { UserContext } from "../../contexts/UserContext";
 import { MovieContext } from "../../contexts/MovieContext";
@@ -13,8 +8,8 @@ import verzelLogo from "../../assets/logo2.jpg";
 import "./Home.css";
 import NavBar from "./NavBar";
 import MovieCard from "./MovieCard";
-import MoviePagination from './MoviePagination'
-import MoviesMenu from './MoviesMenu'
+import MoviePagination from "./MoviePagination";
+import MoviesMenu from "./MoviesMenu";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -31,6 +26,9 @@ const Home = () => {
     page,
     changePage,
     displayMoviesTotalPages,
+    doSearchMovies,
+    search,
+    changeSearch
   } = useContext(MovieContext);
 
   if (!tokenWasValidated && token)
@@ -64,7 +62,13 @@ const Home = () => {
     <div className="home">
       <NavBar user={user} />
       <Container className="homeContent py-3">
-        <MoviesMenu changeType={changeType} typeMovies={typeMovies}/>
+        <MoviesMenu
+          changeType={changeType}
+          typeMovies={typeMovies}
+          searchMovies={doSearchMovies}
+          search={search}
+          changeSearch={changeSearch}
+        />
         <Row>
           {loadingMovies ? (
             <Col className="text-center">
@@ -85,7 +89,11 @@ const Home = () => {
           )}
         </Row>
         {!loadingMovies && displayMoviesTotalPages > 0 && (
-          <MoviePagination changePage={changePage} page={page} displayMoviesTotalPages={displayMoviesTotalPages}/>
+          <MoviePagination
+            changePage={changePage}
+            page={page}
+            displayMoviesTotalPages={displayMoviesTotalPages}
+          />
         )}
       </Container>
     </div>
