@@ -12,7 +12,7 @@ function App() {
   };
 
   return (
-    <div className="root">
+    <div className="app mx-auto mb-5">
       <div>
         <img src={verzelLogo} className="logo my-4" alt="Verzel Movies logo" />
       </div>
