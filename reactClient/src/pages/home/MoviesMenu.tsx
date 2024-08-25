@@ -12,7 +12,7 @@ const MoviesMenu = ({ changeType, typeMovies, searchMovies, search, changeSearch
 
   return (
     <ButtonToolbar
-      className="mb-5 mt-3"
+      className="mb-4 mt-3"
       aria-label="Toolbar with Button groups"
     >
       <InputGroup data-bs-theme="dark" className="me-auto mb-2">

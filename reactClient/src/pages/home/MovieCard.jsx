@@ -10,7 +10,7 @@ import "./Home.css";
 
 const MovieCard = ({movie}) => {
   return (
-    <Col key={movie.id} sm={12} md={6} lg={4} className="mb-4">
+    <Col key={movie.id} sm={12} md={6} lg={4} className="mb-3">
       <Card data-bs-theme="dark">
         <Card.Img
           className="moviePhoto"
@@ -23,7 +23,7 @@ const MovieCard = ({movie}) => {
           <Card.Text className="movieOverview overflow-y-hidden my-auto px-3 mb-3 justify-left">
             {movie.overview || 'Sem resumo'}
           </Card.Text>
-          <Button variant="primary">Ver detalhes</Button>
+          <Button variant="primary" size="sm">Ver detalhes</Button>
         </Card.Body>
       </Card>
     </Col>

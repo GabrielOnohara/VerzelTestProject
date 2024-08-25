@@ -1,10 +1,9 @@
 .home {
     height: 100vh;
-    width: 100vw;
 }
 
 .homeContent {
-    height: 90vh;
+    height: 95vh;
     display: flex;
     flex-direction: column;
 }
@@ -15,6 +14,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.moviesSection {
+    overflow-y: auto;
 }
 
 .movieOverview {
@@ -40,7 +43,6 @@
 }
 
 .movieTitle {
-    min-height: 30px;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;

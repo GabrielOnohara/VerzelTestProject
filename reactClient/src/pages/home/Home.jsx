@@ -59,9 +59,9 @@ const Home = () => {
     );
 
   return (
-    <div className="home pt-5">
+    <div className="home pt-4">
       <NavBar user={user} />
-      <Container className="homeContent py-3">
+      <Container className="homeContent pt-5">
         <MoviesMenu
           changeType={changeType}
           typeMovies={typeMovies}
@@ -69,25 +69,27 @@ const Home = () => {
           search={search}
           changeSearch={changeSearch}
         />
-        <Row>
-          {loadingMovies ? (
-            <Col className="text-center">
-              <div className="loadingMovies">
-                <img
-                  src={verzelLogo}
-                  className="logo2 my-4"
-                  alt="Verzel Movies logo"
-                />
-                <p>Carregando filmes...</p>
-              </div>
-            </Col>
-          ) : (
-            Array((displayMovies || []).length > 0) &&
-            (displayMovies || []).map((movie, index) => (
-              <MovieCard key={index} movie={movie} />
-            ))
-          )}
-        </Row>
+        <Container className="moviesSection">
+          <Row>
+            {loadingMovies ? (
+              <Col className="text-center">
+                <div className="loadingMovies">
+                  <img
+                    src={verzelLogo}
+                    className="logo2 my-4"
+                    alt="Verzel Movies logo"
+                  />
+                  <p>Carregando filmes...</p>
+                </div>
+              </Col>
+            ) : (
+              Array((displayMovies || []).length > 0) &&
+              (displayMovies || []).map((movie, index) => (
+                <MovieCard key={index} movie={movie} />
+              ))
+            )}
+          </Row>
+        </Container>
         {!loadingMovies && displayMoviesTotalPages > 0 && (
           <MoviePagination
             changePage={changePage}
