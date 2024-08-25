@@ -16,39 +16,61 @@ function MovieProvider({ children }) {
   const [typeMovies, setTypeMovies] = useState("popular");
   const [page, setPage] = useState(1);
   const [displayMovies, setDisplayMovies] = useState([]);
+  const [displayMoviesTotalPages, setDisplayMoviesTotalPages] = useState(0);
   const [popularMovies, setPopularMovies] = useState([]);
+  const [popularMoviesTotalPages, setPopularMoviesTotalPages] = useState(0);
   const [upcomingMovies, setUpcomingMovies] = useState([]);
+  const [upcomingMoviesTotalPages, setUpcomingMoviesTotalPages] = useState(0);
   const [topRatedMovies, setTopRatedMovies] = useState([]);
+  const [topRatedMoviesTotalPages, setTopRatedMoviesTotalPages] = useState(0);
   const [nowPlayingMovies, setNowPlayingMovies] = useState([]);
+  const [nowPlayingMoviesTotalPages, setNowPlayingMoviesTotalPages] = useState(0);
 
-  const { token } = useContext(UserContext);
+  const { token, tokenWasValidated } = useContext(UserContext);
 
-  const changeType = useCallback((type) => {
-    setTypeMovies(type);
-    setLoadingMovies(true)
-    setTimeout(() => {
+  const changeType = useCallback(
+    (type) => {
+      setTypeMovies(type);
+      setLoadingMovies(true);
+      setTimeout(() => {
         switch (type) {
-        case "popular":
+          case "popular":
             setDisplayMovies(popularMovies);
+            setDisplayMoviesTotalPages(popularMoviesTotalPages);
             break;
-        case "upcoming":
+          case "upcoming":
             setDisplayMovies(upcomingMovies);
+            setDisplayMoviesTotalPages(upcomingMoviesTotalPages);
             break;
-        case "top_rated":
+          case "top_rated":
             setDisplayMovies(topRatedMovies);
+            setDisplayMoviesTotalPages(topRatedMoviesTotalPages);
             break;
-        case "now_playing":
+          case "now_playing":
             setDisplayMovies(nowPlayingMovies);
+            setDisplayMoviesTotalPages(nowPlayingMoviesTotalPages);
             break;
-        default:
+          default:
             break;
         }
-        setLoadingMovies(false)
-    }, 1000)
-  }, [popularMovies, upcomingMovies, topRatedMovies, nowPlayingMovies]);
+        setLoadingMovies(false);
+      }, 1000);
+    },
+    [
+      popularMovies,
+      upcomingMovies,
+      topRatedMovies,
+      nowPlayingMovies,
+      popularMoviesTotalPages,
+      upcomingMoviesTotalPages,
+      topRatedMoviesTotalPages,
+      nowPlayingMoviesTotalPages
+    ]
+  );
 
   const fetchMovies = useCallback(
     async (page = 1, type) => {
+    if(!tokenWasValidated){ return}
       try {
         const response = await axios.get(
           `http://localhost:5000/movies/${type}?page=${page}`,
@@ -59,21 +81,25 @@ function MovieProvider({ children }) {
           }
         );
 
-        const { results } = response.data;
+        const { results, total_pages } = response.data;
 
         if (Array(results).length > 0) {
           switch (type) {
             case "popular":
               setPopularMovies(results);
+              setPopularMoviesTotalPages(total_pages - 1);
               break;
             case "upcoming":
               setUpcomingMovies(results);
+              setUpcomingMoviesTotalPages(total_pages - 1);
               break;
             case "top_rated":
               setTopRatedMovies(results);
+              setTopRatedMoviesTotalPages(total_pages - 1);
               break;
             case "now_playing":
               setNowPlayingMovies(results);
+              setNowPlayingMoviesTotalPages(total_pages - 1);
               break;
             default:
               break;
@@ -99,7 +125,7 @@ function MovieProvider({ children }) {
         console.error(error);
       }
     },
-    [token]
+    [token, tokenWasValidated]
   );
 
   const fetchAllMovies = useCallback(async () => {
@@ -118,14 +144,28 @@ function MovieProvider({ children }) {
     }
   }, [fetchMovies]);
 
+  const changePage = useCallback((newPage) => {
+    if (newPage != page){
+        if (newPage <= 0) {
+            fetchMovies(newPage, typeMovies)
+            setPage(displayMoviesTotalPages)
+        } else {
+            if(newPage <= displayMoviesTotalPages){
+                fetchMovies(newPage, typeMovies)
+                setPage(newPage)
+            }
+        }
+    }
+
+  }, [displayMoviesTotalPages, page, typeMovies, fetchMovies]);
+
+
   useEffect(() => {
     fetchAllMovies();
   }, [fetchAllMovies]);
 
   useEffect(() => {
-    console.log(typeMovies);
-    
-    changeType(typeMovies)
+    changeType(typeMovies);
   }, [typeMovies, changeType]);
 
   return (
@@ -140,6 +180,8 @@ function MovieProvider({ children }) {
         typeMovies,
         page,
         changeType,
+        changePage,
+        displayMoviesTotalPages
       }}
     >
       {children}

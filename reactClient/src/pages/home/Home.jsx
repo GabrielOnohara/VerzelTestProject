@@ -17,6 +17,7 @@ import verzelLogo from "../../assets/logo2.jpg";
 import "./Home.css";
 import NavBar from "./NavBar";
 import MovieCard from "./MovieCard";
+import MoviePagination from './MoviePagination'
 
 const Home = () => {
   const navigate = useNavigate();
@@ -25,8 +26,15 @@ const Home = () => {
   };
 
   const { user, token, tokenWasValidated } = useContext(UserContext);
-  const { displayMovies, loadingMovies, changeType, typeMovies } =
-    useContext(MovieContext);
+  const {
+    displayMovies,
+    loadingMovies,
+    changeType,
+    typeMovies,
+    page,
+    changePage,
+    displayMoviesTotalPages,
+  } = useContext(MovieContext);
 
   if (!tokenWasValidated && token)
     return (
@@ -58,7 +66,7 @@ const Home = () => {
   return (
     <div className="home">
       <NavBar user={user} />
-      <Container className="homeContent py-5">
+      <Container className="homeContent py-3">
         <ButtonToolbar
           className="mb-5 mt-3"
           aria-label="Toolbar with Button groups"
@@ -74,7 +82,7 @@ const Home = () => {
               <Button variant="outtline-light">Pesquisar</Button>
             </InputGroup.Text>
           </InputGroup>
-          <ButtonGroup className="me-2" aria-label="First group">
+          <ButtonGroup aria-label="First group">
             <Button
               variant={typeMovies == "popular" ? "light" : "outline-light"}
               onClick={() => changeType("popular")}
@@ -104,10 +112,14 @@ const Home = () => {
         <Row>
           {loadingMovies ? (
             <Col className="text-center">
-             <div className="loadingMovies">
-                <img src={verzelLogo} className="logo2 my-4" alt="Verzel Movies logo" />
+              <div className="loadingMovies">
+                <img
+                  src={verzelLogo}
+                  className="logo2 my-4"
+                  alt="Verzel Movies logo"
+                />
                 <p>Carregando filmes...</p>
-             </div>
+              </div>
             </Col>
           ) : (
             Array((displayMovies || []).length > 0) &&
@@ -116,6 +128,9 @@ const Home = () => {
             ))
           )}
         </Row>
+        {!loadingMovies && displayMoviesTotalPages > 0 && (
+          <MoviePagination changePage={changePage} page={page} displayMoviesTotalPages={displayMoviesTotalPages}/>
+        )}
       </Container>
     </div>
   );
