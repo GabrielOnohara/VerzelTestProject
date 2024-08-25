@@ -25,6 +25,11 @@ const MoviePagination = ({changePage, page, displayMoviesTotalPages}) => {
           {page + 9}
         </Pagination.Item>
       )}
+      {page + 19 < displayMoviesTotalPages && (
+        <Pagination.Item onClick={() => changePage(page + 19)}>
+          {page + 19}
+        </Pagination.Item>
+      )}
       {page + 1 < displayMoviesTotalPages && (
         <Pagination.Next onClick={() => changePage(page + 1)} />
       )}
@@ -34,9 +39,7 @@ const MoviePagination = ({changePage, page, displayMoviesTotalPages}) => {
 };
 
 MoviePagination.propTypes = {
-    changePage: PropTypes.function({
-      page: PropTypes.number.isRequired
-    }),
+    changePage: PropTypes.func.isRequired,
     page: PropTypes.number.isRequired,
     displayMoviesTotalPages: PropTypes.number.isRequired
   };
