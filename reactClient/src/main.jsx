@@ -12,6 +12,7 @@ import Login from './pages/login/Login.jsx';
 import Register from './pages/register/Register.jsx';
 import NotFound from './pages/not_found/NotFound.jsx';
 import Home from './pages/home/Home.jsx'
+import Favorites from './pages/favorites/Favorites.jsx'
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: 'home',
     element: <Home/>
+  },
+  {
+    path: 'favorites',
+    element: <Favorites/>
   },
   {
     path: '*',
