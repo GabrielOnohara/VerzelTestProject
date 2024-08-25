@@ -1,19 +1,22 @@
 import {  Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 import PropTypes from "prop-types";
+
 import './Home.css'
+import { Link } from "react-router-dom";
 
 const NavBar = ({ user }) => {
   return (
     <>
       <Navbar expand="lg" className="bg-body-tertiary navbar-fixed" data-bs-theme="dark">
         <Container>
-          <Navbar.Brand class-name="mr-auto" href="#home">
-            Vercel Movies
+          <Navbar.Brand class-name="mr-auto" href="/home">
+          <Link className="link" to={'/home'}>            Vercel Movies</Link>
+
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav.Link className="ms-auto" href="#link">
-              Meus favoritos
+            <Nav.Link className="ms-auto">
+              <Link className="link" to={'/favorites'}>Meus Favoritos</Link>
             </Nav.Link>
             <NavDropdown
               className="ms-auto"

@@ -1,59 +1,64 @@
 .home {
-    height: 100vh;
+  height: 100vh;
 }
 
 .homeContent {
-    height: 95vh;
-    display: flex;
-    flex-direction: column;
+  height: 95vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .homeTokenInvalid {
-    height: 90vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .moviesSection {
-    overflow-y: auto;
+  overflow-y: auto;
 }
 
 .movieOverview {
-    min-height: 80px;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden; 
-    text-overflow: ellipsis;
-    text-align: justify;
+  min-height: 80px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: justify;
 }
 
 .loadingMovies {
-    height: 60vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .moviePhoto {
-    height: 200px;
+  height: 200px;
 }
 
 .movieTitle {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden; 
-    text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .navbar-fixed {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000; /* Ensure it's on top of other content */
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.link {
+ text-decoration: none;
+ color: rgba(255, 255, 255, 0.87);
+}
