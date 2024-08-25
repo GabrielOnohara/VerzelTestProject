@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
 router.get('/popular', async (req, res) => {  
   try {
     const response = await axios.get(
-      process.env.TMDB_URL + `/movie/popular?language=en-US&page=1`+`&api_key=${process.env.TMDB_TOKEN}`
+      process.env.TMDB_URL + `/movie/popular?language=pt-BR&page=1`+`&api_key=${process.env.TMDB_TOKEN}`
     )
     const data = response.data
     res.json(data)
@@ -30,7 +30,7 @@ router.get('/popular', async (req, res) => {
 router.get('/upcoming', async (req, res) => {  
   try {
     const response = await axios.get(
-      process.env.TMDB_URL + `/movie/popular?language=en-US&page=1`+`&api_key=${process.env.TMDB_TOKEN}`
+      process.env.TMDB_URL + `/movie/upcoming?language=pt-BR&page=1`+`&api_key=${process.env.TMDB_TOKEN}`
     )
     const data = response.data
     res.json(data)
@@ -42,7 +42,7 @@ router.get('/upcoming', async (req, res) => {
 router.get('/top_rated', async (req, res) => {  
   try {
     const response = await axios.get(
-      process.env.TMDB_URL + `/movie/top_rated?language=en-US&page=1`+`&api_key=${process.env.TMDB_TOKEN}`
+      process.env.TMDB_URL + `/movie/top_rated?language=pt-BR&page=1`+`&api_key=${process.env.TMDB_TOKEN}`
     )
     const data = response.data
     res.json(data)
@@ -55,7 +55,7 @@ router.get('/top_rated', async (req, res) => {
 router.get('/now_playing', async (req, res) => {  
   try {
     const response = await axios.get(
-      process.env.TMDB_URL + `/movie/now_playing?language=en-US&page=1`+`&api_key=${process.env.TMDB_TOKEN}`
+      process.env.TMDB_URL + `/movie/now_playing?language=pt-BR&page=1`+`&api_key=${process.env.TMDB_TOKEN}`
     )
     const data = response.data
     res.json(data)
