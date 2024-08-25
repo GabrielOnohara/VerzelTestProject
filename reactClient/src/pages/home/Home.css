@@ -16,3 +16,20 @@
     justify-content: center;
     align-items: center;
 }
+
+.movieOverview {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    text-align: justify;
+}
+
+.loadingMovies {
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

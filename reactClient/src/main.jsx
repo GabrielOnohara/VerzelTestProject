@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import App from './App.jsx'
 import './index.css'
 import { UserProvider } from './contexts/UserContext.jsx'; 
+import { MovieProvider } from './contexts/MovieContext.jsx'; 
 import Login from './pages/login/Login.jsx';
 import Register from './pages/register/Register.jsx';
 import NotFound from './pages/not_found/NotFound.jsx';
@@ -45,7 +46,9 @@ createRoot(document.getElementById('root'))
         hideProgressBar={true}
         theme="dark"
       />
-      <RouterProvider router={router}/>
+      <MovieProvider>
+        <RouterProvider router={router}/>
+      </MovieProvider>
     </UserProvider>
   </StrictMode>,
 )
