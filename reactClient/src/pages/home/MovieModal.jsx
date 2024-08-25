@@ -1,13 +1,12 @@
-import { Modal, Button, Image } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 
 import "./Home.css";
 
 const MovieModal = ({ showModal, changeModal, modalMovie }) => {
-
-  const backgroundImage = modalMovie 
-  ? `https://image.tmdb.org/t/p/w500${modalMovie.poster_path}` 
-  : '/logo2.jpg';
+  const backgroundImage = modalMovie
+    ? `https://image.tmdb.org/t/p/w500${modalMovie.poster_path}`
+    : "/logo2.jpg";
 
   return (
     <Modal
@@ -21,28 +20,35 @@ const MovieModal = ({ showModal, changeModal, modalMovie }) => {
     >
       <Modal.Header className="fw-bold" closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          { modalMovie ? modalMovie.title : 'Título' }
+          {modalMovie ? modalMovie.title : "Título"}
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body 
+      <Modal.Body
         style={{
-          backgroundImage: `url(${backgroundImage}) `
-        }} 
-        className="d-flex modalMovieBody">
+          backgroundImage: `url(${backgroundImage}) `,
+        }}
+        className="d-flex modalMovieBody"
+      >
         <div className="py-3">
           <h4>Sobre</h4>
-          <p className=" modalOverview">{modalMovie ? modalMovie.overview : 'Resumo'}</p>
-          <p >
+          <p className=" modalOverview">
+            {modalMovie ? modalMovie.overview : "Resumo"}
+          </p>
+          <p>
             <span className="fw-bold me-2">Data de lançamento:</span>
-            {modalMovie ? modalMovie.release_date.split('-').reverse().join('/') : '1234-12-12'}
+            {modalMovie
+              ? modalMovie.release_date.split("-").reverse().join("/")
+              : "1234-12-12"}
           </p>
           <p>
             <span className="fw-bold me-2">Faixa etária:</span>
-            {modalMovie && modalMovie.adult ? 'Adultos(18+)' : 'Livre'}
+            {modalMovie && modalMovie.adult ? "Adultos(18+)" : "Livre"}
           </p>
           <p>
             <span className="fw-bold me-2">Avaliação:</span>
-            {modalMovie && modalMovie.vote_average ? modalMovie.vote_average : 0.0}
+            {modalMovie && modalMovie.vote_average
+              ? modalMovie.vote_average
+              : 0.0}
           </p>
           <p>
             <span className="fw-bold me-2">Contagem de votos:</span>
@@ -51,7 +57,7 @@ const MovieModal = ({ showModal, changeModal, modalMovie }) => {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="success" onClick={() => changeModal(false)}>
+        <Button variant="success" onClick={() => console.log('Favoritar')}>
           Favoritar
         </Button>
         <Button variant="danger" onClick={() => changeModal(false)}>
