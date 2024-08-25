@@ -59,7 +59,7 @@ const Home = () => {
     );
 
   return (
-    <div className="home">
+    <div className="home pt-5">
       <NavBar user={user} />
       <Container className="homeContent py-3">
         <MoviesMenu

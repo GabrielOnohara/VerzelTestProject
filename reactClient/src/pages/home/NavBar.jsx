@@ -1,13 +1,14 @@
-import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
+import {  Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 import PropTypes from "prop-types";
+import './Home.css'
 
 const NavBar = ({ user }) => {
   return (
     <>
-      <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme="dark">
+      <Navbar expand="lg" className="bg-body-tertiary navbar-fixed" data-bs-theme="dark">
         <Container>
           <Navbar.Brand class-name="mr-auto" href="#home">
-            Verzel Movies
+            Vercel Movies
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
