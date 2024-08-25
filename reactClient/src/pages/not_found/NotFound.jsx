@@ -11,7 +11,7 @@ function NotFound() {
   }
 
   return (
-    <div>
+    <div className="notFound">
       <div>
         <img src={verzelLogo} className="logo2 my-4" alt="Verzel Movies logo" />
       </div>
