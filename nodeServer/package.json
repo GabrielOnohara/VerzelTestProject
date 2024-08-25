@@ -1,5 +1,5 @@
 {
-  "name": "vercel-movies-app",
+  "name": "verzel-movies-app",
   "type": "module",
   "version": "0.0.1",
   "main": "app.js",
@@ -16,6 +16,6 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.5.4",
     "nodemon": "^3.1.4",
-    "vercel-movies-app": "file:"
+    "verzel-movies-app": "file:"
   }
 }
