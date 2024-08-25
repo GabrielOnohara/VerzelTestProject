@@ -1,4 +1,7 @@
 import { Router } from 'express';
+import jwt from 'jsonwebtoken';
+
+
 import User from '../models/User.js';
 import generateToken from '../jwt/jwt.js';
 
@@ -57,5 +60,44 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ message: 'Erro ao fazer login', error: error.message });
   }
 })
+
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1]; // Supondo que o token vem no formato "Bearer token"
+
+  if (token == null) return res.status(401).json({ message: 'Token não fornecido' });
+
+  jwt.verify(token, process.env.JWT_SECRET || 'randomSecret', (err, user) => {
+    if (err) {
+      if (err.name === 'TokenExpiredError') {
+        return res.status(403).json({ message: 'Token expirado' });
+      } else {
+        return res.status(403).json({ message: 'Token inválido' });
+      }
+    }
+
+    req.user = user;
+    next();
+  });
+};
+
+router.get('/token', authenticateToken, async (req, res) => {
+  try {
+    const { id } = req.user;
+
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(400).json({ message: 'Usuário não encontrado!' });
+    }
+    
+    const newToken = generateToken(user);
+    res.status(200).json({
+      message: 'Token renovado com sucesso',
+      token: newToken
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Erro ao renovar token', error: error.message });
+  }
+});
 
 export default router;

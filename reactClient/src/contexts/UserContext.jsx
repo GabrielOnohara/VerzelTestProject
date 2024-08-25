@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import * as jwtDecode from 'jwt-decode';
+import axios from "axios";
 
 const UserContext = createContext();
 
@@ -22,7 +23,29 @@ function UserProvider({ children }) {
     setUser(null);
   };
 
-  const refreshToken = useCallback(() => {
+  const refreshToken = useCallback( 
+    async (lastToken) => {
+      setTokenWasValidated(false)
+      try {
+        const response = await axios.get("http://localhost:5000/auth/token",{
+          headers: {
+            Authorization: 'Bearer ' + lastToken
+          }
+        });
+
+        const { token } = response.data;
+        auth(token)
+        const { username }= jwtDecode.jwtDecode(token)
+        login({username})
+      } catch {
+        auth(null)
+        logout()
+      } finally {
+        setTokenWasValidated(true)
+      }
+  }, [])
+
+  const verifyToken = useCallback(async () => {
     setTokenWasValidated(false)
     let localToken = localStorage.getItem('authToken');
     if (localToken) {
@@ -36,8 +59,8 @@ function UserProvider({ children }) {
             auth(localToken);
             if(username)
               login({username})
+            refreshToken(localToken)
           } else {
-
             auth(null)
             logout()
           }
@@ -50,14 +73,14 @@ function UserProvider({ children }) {
         setTokenWasValidated(true)
       }
     }
-  }, []);
+  }, [refreshToken]);
 
   useEffect(() => {
-    refreshToken()
-  },[refreshToken])
+    verifyToken()
+  },[verifyToken])
   
   return (
-    <UserContext.Provider value={{ user, token, login, logout, auth, refreshToken, tokenWasValidated }}>
+    <UserContext.Provider value={{ user, token, login, logout, auth, verifyToken, tokenWasValidated, refreshToken }}>
       {children}
     </UserContext.Provider>
   );
