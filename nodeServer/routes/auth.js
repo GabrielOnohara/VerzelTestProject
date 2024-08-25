@@ -30,8 +30,32 @@ router.post('/register', async (req, res) => {
       token
     });
   } catch (error) {
-    res.status(400).json({ message: 'Error creating user', error: error.message });
+    res.status(500).json({ message: 'Erro ao criar conta', error: error.message });
   }
 });
+
+router.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(400).json({ message: 'Usuário não encontrado!' });
+    }
+
+    const isMatch = await user.comparePassword(password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Senha incorreta!' });
+    }
+
+    const token = generateToken(user);
+    res.status(200).json({
+      message: 'Login feito com sucesso',
+      token
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Erro ao fazer login', error: error.message });
+  }
+})
 
 export default router;

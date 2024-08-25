@@ -26,8 +26,9 @@ const Home = () => {
     return <>
         <>
         <img src={verzelLogo} className="logo2 my-4" alt="Verzel Movies logo" />
-          <h1>Seu Token Expirou</h1>
-          <Button onClick={goToLogin}></Button>
+          <h1>Token expirado</h1>
+          <p>Necesário validar novamente na tela de login</p>
+          <Button className="mt-3" variant="outline-light" onClick={goToLogin}>Voltar para o login</Button>
        </>
     </>
 

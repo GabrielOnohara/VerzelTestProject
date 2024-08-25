@@ -54,12 +54,11 @@ function Register() {
         username,
         email,
       });
-      localStorage.setItem("authToken", token);
 
       toast.success("Usuário criado com sucesso");
       setTimeout(() => {
-        navigate("/home");
-      });
+        goToHome()
+      }, 1000);
     } catch (error) {
       if (error.response?.data?.message) {
         toast.error(`Erro: ${error.response.data.message}`);
