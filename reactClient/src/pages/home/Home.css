@@ -3,6 +3,12 @@
     width: 100vw;
 }
 
+.homeContent {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
 .homeTokenInvalid {
     height: 90vh;
     display: flex;
