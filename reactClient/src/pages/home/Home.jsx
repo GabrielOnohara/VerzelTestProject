@@ -33,6 +33,7 @@ const Home = () => {
     showModal,
     changeModal,
     changeModalMovie,
+    modalMovie,
   } = useContext(MovieContext);
 
   if (!tokenWasValidated && token)
@@ -64,7 +65,11 @@ const Home = () => {
 
   return (
     <div className="home pt-4">
-      <MovieModal showModal={showModal} changeModal={changeModal} />
+      <MovieModal
+        showModal={showModal}
+        changeModal={changeModal}
+        modalMovie={modalMovie}
+      />
       <NavBar user={user} />
       <Container className="homeContent pt-5">
         <MoviesMenu
