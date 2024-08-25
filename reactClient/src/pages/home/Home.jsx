@@ -63,7 +63,7 @@ const Home = () => {
           className="mb-5 mt-3"
           aria-label="Toolbar with Button groups"
         >
-          <InputGroup data-bs-theme="dark" className="me-auto">
+          <InputGroup data-bs-theme="dark" className="me-auto mb-2">
             <Form.Control
               type="text"
               placeholder="Nome de filme"

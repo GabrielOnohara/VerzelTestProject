@@ -17,7 +17,7 @@ const MovieCard = ({movie}) => {
         <Card.Body>
           <Card.Title className="fw-bold mb-3">{movie.title}</Card.Title>
           <Card.Text className="movieOverview overflow-y-hidden my-auto px-3 mb-3 justify-left">
-            {movie.overview}
+            {movie.overview || 'Sem resumo'}
           </Card.Text>
           <Button variant="primary">Ver detalhes</Button>
         </Card.Body>
