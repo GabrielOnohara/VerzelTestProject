@@ -23,6 +23,7 @@ app.get("/", (req, res) => {
   );
 });
 
+mongoose.set('strictPopulate', false);
 mongoose.connect(mongoURI)
   .then(() => {
     mongoIsRunning = true

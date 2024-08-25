@@ -1,5 +1,8 @@
 import { Router } from 'express';
 import axios from 'axios';
+
+import {addFavorite} from '../models/Movie.js'
+import User from '../models/User.js';
 import {authenticateToken} from '../jwt/jwt.js'
 const router = Router();
 
@@ -83,6 +86,41 @@ router.get('/search', authenticateToken, async (req, res) => {
   try {
     const data = await searchMovieData(query, page);
     res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.get('/favorites', authenticateToken, async (req, res) => {
+  try {
+    const { id } = req.user;
+    const user = await User.findById(id).populate('favorites')
+    if (!user) {
+      return res.status(400).json({ message: 'Usuário não encontrado!' });
+    }
+  
+    res.status(200).json({ favorites: user.favorites });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.post('/favorites', authenticateToken, async (req, res) => {
+  try {
+    const { id } = req.user;
+    const favoriteData = req.body
+    const user = await User.findById(id).populate('favorites')
+    if (!user) {
+      return res.status(400).json({ message: 'Usuário não encontrado!' });
+    }
+    
+    if(addFavorite(user._id, favoriteData)){
+      return res.status(200).json({ sucess: true });
+    } else {
+      return res.status(400).json({ sucess: false});
+    }
+
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
