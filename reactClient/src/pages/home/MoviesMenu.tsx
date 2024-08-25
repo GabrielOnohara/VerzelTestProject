@@ -25,7 +25,7 @@ const MoviesMenu = ({ changeType, typeMovies, searchMovies, search, changeSearch
           onChange={(e) => changeSearch(e.target.value)}
         />
         <InputGroup.Text id="btnGroupAddon">
-          <Button onClick={() => searchMovies()} variant="outtline-light">Pesquisar</Button>
+          <Button onClick={() => searchMovies(1)} variant="outtline-light">Pesquisar</Button>
         </InputGroup.Text>
       </InputGroup>
       <ButtonGroup aria-label="First group">

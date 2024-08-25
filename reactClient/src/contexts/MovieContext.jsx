@@ -90,7 +90,7 @@ function MovieProvider({ children }) {
         }
         try {
             const response = await axios.get(
-              `http://localhost:5000/movies/search?query=${search}&page=${page}`,
+              `http://localhost:5000/movies/search?query=${search}&page=${page > 0 ? page : 1}`,
               {
                 headers: {
                   Authorization: "Bearer " + token,
