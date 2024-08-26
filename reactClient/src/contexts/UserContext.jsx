@@ -21,7 +21,10 @@ function UserProvider({ children }) {
   };
 
   const logout = () => {
+    localStorage.removeItem('authToken')
     setUser(null);
+    setToken(null)
+    setTokenWasValidated(true)
   };
 
   const refreshToken = useCallback( 

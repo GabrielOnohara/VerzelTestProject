@@ -19,7 +19,7 @@ const Home = () => {
     navigate("/login");
   };
 
-  const { user, token, tokenWasValidated } = useContext(UserContext);
+  const { user, token, tokenWasValidated, logout } = useContext(UserContext);
   const {
     displayMovies,
     loadingMovies,
@@ -76,7 +76,7 @@ const Home = () => {
         modalMovie={modalMovie}
         modalAction={addToFavoriteMovies}
       />
-      <NavBar user={user} />
+      <NavBar user={user} logout={logout} />
       <Container className="homeContent pt-5">
         <MoviesMenu
           changeType={changeType}
