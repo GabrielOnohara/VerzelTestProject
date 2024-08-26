@@ -144,9 +144,22 @@ router.delete('/favorites/:id', authenticateToken, async (req, res) => {
   }
 });
 
+router.get('/favorites/:userId', async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const user = await User.findById(userId).populate('favorites');
+    if (!user) {
+      return res.status(400).json({ message: 'Usuário não encontrado!' });
+    }
+
+    res.status(200).json({ favorites: user.favorites });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 router.get('/:id', (req, res) => {
-  res.status(200).send(`User with ID ${req.params.id}`);
+  res.status(200).send(`Movies with ID ${req.params.id}`);
 });
 
 export default router;
