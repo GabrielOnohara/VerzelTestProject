@@ -39,8 +39,8 @@ function UserProvider({ children }) {
 
         const { token } = response.data;
         auth(token)
-        const { username }= jwtDecode.jwtDecode(token)
-        login({username})
+        const { username, id }= jwtDecode.jwtDecode(token)
+        login({username, id})
       } catch {
         auth(null)
         logout()
@@ -55,14 +55,14 @@ function UserProvider({ children }) {
     if (localToken) {
       try {
         const decodedToken = jwtDecode.jwtDecode(localToken);
-        const { exp, username } = decodedToken;
+        const { exp, username, id } = decodedToken;
   
         if (exp) {
           const currentTime = Date.now() / 1000;
           if (exp > currentTime) {
             auth(localToken);
             if(username)
-              login({username})
+              login({username, id })
             refreshToken(localToken)
           } else {
             auth(null)

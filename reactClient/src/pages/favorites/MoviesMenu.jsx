@@ -1,13 +1,25 @@
-import React, { useState } from "react";
 import {
   Button,
   ButtonToolbar,
   Form,
   InputGroup,
+  ButtonGroup
 } from "react-bootstrap";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
 
-const MoviesMenu = ({ searchMovies, search, changeSearch }) => {
+const MoviesMenu = ({ searchMovies, search, changeSearch, user }) => {
+
+  const handleShareClick = async () => {
+    const url = import.meta.env.VITE_APP_API_URL + `/favorites/${user.id.split(' ').join('+')}`;
+    
+    try {
+      await navigator.clipboard.writeText(url);
+      toast.info('Link compartilhamento de copiado!')
+    } catch (err) {
+      console.error("Falha ao copiar para a área de transferência: ", err);
+    }
+  };
 
   return (
     <ButtonToolbar
@@ -27,6 +39,15 @@ const MoviesMenu = ({ searchMovies, search, changeSearch }) => {
           <Button onClick={() => searchMovies()} variant="outtline-light">Pesquisar</Button>
         </InputGroup.Text>
       </InputGroup>
+      <ButtonGroup aria-label="First group">
+        <Button
+            className="py-2"
+            variant={'outline-primary'}
+            onClick={handleShareClick}
+          >
+          Compartilhar
+        </Button>
+      </ButtonGroup>
     </ButtonToolbar>
   );
 };
@@ -35,6 +56,7 @@ MoviesMenu.propTypes = {
   searchMovies: PropTypes.func.isRequired,
   changeSearch: PropTypes.func.isRequired,
   search: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 export default MoviesMenu;
