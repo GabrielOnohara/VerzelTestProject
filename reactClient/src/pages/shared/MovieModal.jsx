@@ -1,21 +1,17 @@
 import { Modal, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 
-import "./Home.css";
+import "../home/Home.css";
 
 const MovieModal = ({
   showModal,
   changeModal,
   modalMovie,
-  modalAction,
-  favoriteMovies,
 }) => {
   const backgroundImage = modalMovie
     ? `https://image.tmdb.org/t/p/w500${modalMovie.poster_path}`
     : "/logo2.jpg";
-    const movieAlreadyInFavorite = modalMovie
-    ? favoriteMovies.some((movie) => movie.id === modalMovie.id)
-    : false;
+
   return (
     <Modal
       className="movieModal"
@@ -65,13 +61,6 @@ const MovieModal = ({
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button
-          disabled={movieAlreadyInFavorite}
-          variant="success"
-          onClick={() => modalAction(modalMovie)}
-        >
-          {movieAlreadyInFavorite ? 'Favoritado' : 'Favoritar'}
-        </Button>
         <Button variant="primary" onClick={() => changeModal(false)}>
           Fechar
         </Button>
@@ -83,9 +72,7 @@ const MovieModal = ({
 MovieModal.propTypes = {
   showModal: PropTypes.bool.isRequired,
   changeModal: PropTypes.func.isRequired,
-  modalAction: PropTypes.func.isRequired,
   modalMovie: PropTypes.object,
-  favoriteMovies: PropTypes.array.isRequired
 };
 
 export default MovieModal;

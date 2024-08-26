@@ -38,7 +38,7 @@ const MovieModal = ({ showModal, changeModal, modalMovie, modalAction }) => {
             <span className="fw-bold me-2">Data de lançamento:</span>
             {modalMovie
               ? modalMovie.release_date.split("T")[0].split("-").reverse().join("/")
-              : "1234-12-12"}
+              : "Data não encontrada"}
           </p>
           <p>
             <span className="fw-bold me-2">Faixa etária:</span>
