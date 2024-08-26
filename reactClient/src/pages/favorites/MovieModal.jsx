@@ -1,7 +1,7 @@
 import { Modal, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 
-import "./Home.css";
+import "../home/Home.css";
 
 const MovieModal = ({ showModal, changeModal, modalMovie,  }) => {
   const backgroundImage = modalMovie
@@ -57,8 +57,8 @@ const MovieModal = ({ showModal, changeModal, modalMovie,  }) => {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="success" onClick={() => console.log('Favoritar')}>
-          Favoritar
+        <Button variant="danger" onClick={() => console.log('Desfavoritar')}>
+          Remover
         </Button>
         <Button variant="primary" onClick={() => changeModal(false)}>
           Fechar

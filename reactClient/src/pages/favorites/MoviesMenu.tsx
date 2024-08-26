@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import {
   Button,
   ButtonToolbar,
-  ButtonGroup,
   Form,
   InputGroup,
 } from "react-bootstrap";
 import PropTypes from "prop-types";
 
-const MoviesMenu = ({ changeType, typeMovies, searchMovies, search, changeSearch }) => {
+const MoviesMenu = ({ searchMovies, search, changeSearch }) => {
 
   return (
     <ButtonToolbar
@@ -25,7 +24,7 @@ const MoviesMenu = ({ changeType, typeMovies, searchMovies, search, changeSearch
           onChange={(e) => changeSearch(e.target.value)}
         />
         <InputGroup.Text id="btnGroupAddon">
-          <Button onClick={() => searchMovies(1)} variant="outtline-light">Pesquisar</Button>
+          <Button onClick={() => searchMovies()} variant="outtline-light">Pesquisar</Button>
         </InputGroup.Text>
       </InputGroup>
     </ButtonToolbar>
@@ -33,11 +32,9 @@ const MoviesMenu = ({ changeType, typeMovies, searchMovies, search, changeSearch
 };
 
 MoviesMenu.propTypes = {
-  changeType: PropTypes.func.isRequired,
   searchMovies: PropTypes.func.isRequired,
   changeSearch: PropTypes.func.isRequired,
   search: PropTypes.string.isRequired,
-  typeMovies: PropTypes.string.isRequired,
 };
 
 export default MoviesMenu;
