@@ -4,6 +4,7 @@ Este [site](https://verzel-test-project-client.vercel.app/) é um projeto full-s
 ![alt text](image-5.png)
 ![alt text](image.png)
 ![alt text](image-4.png)
+
 ## Estrutura do Projeto
 - **API Externa:** Api completa de filmes do  [TMDB](https://www.themoviedb.org/)
 - **Frontend**: Criado com [Vite](https://vitejs.dev/) e [React](https://react.dev/blog/2023/03/16/introducing-react-dev)
@@ -43,7 +44,9 @@ Para rodar a aplicação servidor siga os seguintes passos:
     ```bash
     npm run start
     ```
+
 Ao final deste processo, haverá uma mensagem mostrando que aplicação foi iniciada e que a conexão com o banco de dados foi realizada:
+
 ![alt text](image-2.png)
 
 ### Frontend
@@ -61,6 +64,7 @@ Para rodar a aplicação cliente siga os seguintes passos:
    ```bash
    npm run dev
    ```
+
 Ao final deste processo o vite apontará no CMD a mensagem da porta que a aplicação está rodando:
 
 ![alt text](image-1.png)
