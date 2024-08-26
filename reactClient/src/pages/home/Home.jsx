@@ -38,7 +38,8 @@ const Home = () => {
   } = useContext(MovieContext);
 
   const {
-    addToFavoriteMovies
+    addToFavoriteMovies,
+    favoriteMovies
   } = useContext(FavoriteContext)
 
   if (!tokenWasValidated && token)
@@ -75,6 +76,7 @@ const Home = () => {
         changeModal={changeModal}
         modalMovie={modalMovie}
         modalAction={addToFavoriteMovies}
+        favoriteMovies={favoriteMovies}
       />
       <NavBar user={user} logout={logout} />
       <Container className="homeContent pt-5">

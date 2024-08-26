@@ -3,11 +3,19 @@ import PropTypes from "prop-types";
 
 import "./Home.css";
 
-const MovieModal = ({ showModal, changeModal, modalMovie, modalAction  }) => {
+const MovieModal = ({
+  showModal,
+  changeModal,
+  modalMovie,
+  modalAction,
+  favoriteMovies,
+}) => {
   const backgroundImage = modalMovie
     ? `https://image.tmdb.org/t/p/w500${modalMovie.poster_path}`
     : "/logo2.jpg";
-
+    const movieAlreadyInFavorite = modalMovie
+    ? favoriteMovies.some((movie) => movie.id === modalMovie.id)
+    : false;
   return (
     <Modal
       className="movieModal"
@@ -57,8 +65,12 @@ const MovieModal = ({ showModal, changeModal, modalMovie, modalAction  }) => {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="success" onClick={() => modalAction(modalMovie)}>
-          Favoritar
+        <Button
+          disabled={movieAlreadyInFavorite}
+          variant="success"
+          onClick={() => modalAction(modalMovie)}
+        >
+          {movieAlreadyInFavorite ? 'Favoritado' : 'Favoritar'}
         </Button>
         <Button variant="primary" onClick={() => changeModal(false)}>
           Fechar
@@ -73,6 +85,7 @@ MovieModal.propTypes = {
   changeModal: PropTypes.func.isRequired,
   modalAction: PropTypes.func.isRequired,
   modalMovie: PropTypes.object,
+  favoriteMovies: PropTypes.array.isRequired
 };
 
 export default MovieModal;
