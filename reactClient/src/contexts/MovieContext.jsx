@@ -107,7 +107,7 @@ function MovieProvider({ children }) {
       }
       try {
         const response = await axios.get(
-          `http://localhost:5000/movies/search?query=${search}&page=${
+          import.meta.env.VITE_APP_API_URL +`/movies/search?query=${search}&page=${
             page > 0 ? page : 1
           }`,
           {
@@ -140,7 +140,7 @@ function MovieProvider({ children }) {
       }
       try {
         const response = await axios.get(
-          `http://localhost:5000/movies/${type}?page=${page}`,
+          import.meta.env.VITE_APP_API_URL + `/movies/${type}?page=${page}`,
           {
             headers: {
               Authorization: "Bearer " + token,

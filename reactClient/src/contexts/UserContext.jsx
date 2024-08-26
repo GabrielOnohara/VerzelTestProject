@@ -31,7 +31,7 @@ function UserProvider({ children }) {
     async (lastToken) => {
       setTokenWasValidated(false)
       try {
-        const response = await axios.get("http://localhost:5000/auth/token",{
+        const response = await axios.get(import.meta.env.VITE_APP_API_URL + "/auth/token",{
           headers: {
             Authorization: 'Bearer ' + lastToken
           }

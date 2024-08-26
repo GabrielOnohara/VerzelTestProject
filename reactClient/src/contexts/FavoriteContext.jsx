@@ -66,7 +66,7 @@ function FavoriteProvider({ children }) {
     }
     try {
       const response = await axios.get(
-        "http://localhost:5000/movies/favorites",
+        import.meta.env.VITE_APP_API_URL + "/movies/favorites",
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -93,7 +93,7 @@ function FavoriteProvider({ children }) {
     }
     try {
       const response = await axios.post(
-        "http://localhost:5000/movies/favorites",
+        import.meta.env.VITE_APP_API_URL + "/movies/favorites",
         movieData,
         {
           headers: {
@@ -124,7 +124,7 @@ function FavoriteProvider({ children }) {
     }
     try {
       const response = await axios.delete(
-        `http://localhost:5000/movies/favorites/${movieData._id}`,
+        import.meta.env.VITE_APP_API_URL + `/movies/favorites/${movieData._id}`,
         {
           headers: {
             Authorization: "Bearer " + token,

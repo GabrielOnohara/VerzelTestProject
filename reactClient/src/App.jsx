@@ -10,7 +10,6 @@ function App() {
   const goToLogin = () => {
     navigate("/login");
   };
-
   return (
     <div className="app mx-auto mb-5">
       <div>

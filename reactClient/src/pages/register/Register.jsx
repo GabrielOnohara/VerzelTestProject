@@ -42,7 +42,7 @@ function Register() {
         return toast.warning("Preencha todos os campos");
       }
 
-      const response = await axios.post("http://localhost:5000/auth/register", {
+      const response = await axios.post(import.meta.env.VITE_APP_API_URL + "/auth/register", {
         username,
         email,
         password,
