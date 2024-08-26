@@ -112,30 +112,35 @@ function FavoriteProvider({ children }) {
     }
   }, [token, tokenWasValidated, fetchFavoriteMovies, changeModal])
 
-  // const changePage = useCallback(
-  //   (newPage) => {
-  //     if (newPage != page) {
-  //       if (newPage <= 0) {
-  //         if (typeMovies == "search") {
-  //           doSearchMovies(newPage);
-  //         } else {
-  //           fetchMovies(newPage, typeMovies);
-  //         }
-  //         setPage(displayMoviesTotalPages);
-  //       } else {
-  //         if (newPage <= displayMoviesTotalPages) {
-  //           if (typeMovies == "search") {
-  //             doSearchMovies(newPage);
-  //           } else {
-  //             fetchMovies(newPage, typeMovies);
-  //           }
-  //           setPage(newPage);
-  //         }
-  //       }
-  //     }
-  //   },
-  //   []
-  // );
+  const removeFromFavoriteMovies = useCallback(async (movieData) => {
+    setFavoritesLoading(true);
+    if (!tokenWasValidated) {
+      return;
+    }
+    try {
+      const response = await axios.delete(
+        `http://localhost:5000/movies/favorites/${movieData._id}`,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      const { success } = response.data;
+      if (success) {
+        toast.success('Filme removido na lista de favoritos')
+        changeFavoriteModal(false)
+        fetchFavoriteMovies()
+      } else {
+        changeFavoriteModal(false)
+        toast.error('Erro ao remover filme na lista de favoritos')
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setFavoritesLoading(false);
+    }
+  }, [token, tokenWasValidated, fetchFavoriteMovies])
 
   useEffect(() => {
     fetchFavoriteMovies();
@@ -157,7 +162,8 @@ function FavoriteProvider({ children }) {
         favoritesLoading,
         displayMovies,
         setDisplayMovies,
-        addToFavoriteMovies
+        addToFavoriteMovies,
+        removeFromFavoriteMovies
       }}
     >
       {children}

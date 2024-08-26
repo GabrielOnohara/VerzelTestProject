@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import "../home/Home.css";
 
-const MovieModal = ({ showModal, changeModal, modalMovie,  }) => {
+const MovieModal = ({ showModal, changeModal, modalMovie, modalAction }) => {
   const backgroundImage = modalMovie
     ? `https://image.tmdb.org/t/p/w500${modalMovie.poster_path}`
     : "/logo2.jpg";
@@ -57,7 +57,7 @@ const MovieModal = ({ showModal, changeModal, modalMovie,  }) => {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="danger" onClick={() => console.log('Desfavoritar')}>
+        <Button variant="danger" onClick={() => modalAction(modalMovie)}>
           Remover
         </Button>
         <Button variant="primary" onClick={() => changeModal(false)}>
@@ -71,6 +71,7 @@ const MovieModal = ({ showModal, changeModal, modalMovie,  }) => {
 MovieModal.propTypes = {
   showModal: PropTypes.bool.isRequired,
   changeModal: PropTypes.func.isRequired,
+  modalAction: PropTypes.func.isRequired,
   modalMovie: PropTypes.object,
 };
 

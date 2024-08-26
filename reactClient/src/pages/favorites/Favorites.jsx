@@ -27,7 +27,8 @@ const Favorites = () => {
     changeModalMovie,
     search,
     changeSearch,
-    searchMovies
+    searchMovies,
+    removeFromFavoriteMovies
   } = useContext(FavoriteContext);
 
   if (!tokenWasValidated && token)
@@ -63,6 +64,7 @@ const Favorites = () => {
         showModal={showFavoriteModal}
         changeModal={changeFavoriteModal}
         modalMovie={modalMovie}
+        modalAction={removeFromFavoriteMovies}
       />
       <NavBar user={user} />
       <Container className="homeContent pt-5">
