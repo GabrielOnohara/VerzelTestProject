@@ -13,8 +13,12 @@ const NavBar = ({ user }) => {
         data-bs-theme="dark"
       >
         <Container>
-          <Navbar.Brand class-name="mr-auto" href="/home">
+
+          <Navbar.Brand class-name="mr-auto">
+            
+            <Link className="link ms-auto" to={"/home"}>
             Vercel Movies
+            </Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
