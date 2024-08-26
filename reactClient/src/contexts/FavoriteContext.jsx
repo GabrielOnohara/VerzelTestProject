@@ -54,6 +54,11 @@ function FavoriteProvider({ children }) {
     )
   }
 
+  const changeFavoritesMovies = (favorites) => {
+    setFavoriteMovies(favorites)
+    setDisplayMovies(favorites)
+  }
+
   const fetchFavoriteMovies = useCallback(async () => {
     setFavoritesLoading(true);
     if (!tokenWasValidated) {
@@ -96,11 +101,11 @@ function FavoriteProvider({ children }) {
           },
         }
       );
-      const { success } = response.data;
-      if (success) {
+      const { favorites } = response.data;
+      if (favorites) {
         toast.success('Filme adicionado na lista de favoritos')
         changeModal(false)
-        fetchFavoriteMovies()
+        changeFavoritesMovies(favorites)
       } else {
         changeModal(false)
         toast.error('Erro ao salvar filme na lista de favoritos')
@@ -110,7 +115,7 @@ function FavoriteProvider({ children }) {
     } finally {
       setFavoritesLoading(false);
     }
-  }, [token, tokenWasValidated, fetchFavoriteMovies, changeModal])
+  }, [token, tokenWasValidated, changeModal])
 
   const removeFromFavoriteMovies = useCallback(async (movieData) => {
     setFavoritesLoading(true);

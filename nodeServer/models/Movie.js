@@ -32,13 +32,15 @@ export async function addFavorite(userId, movieData) {
 
     await User.findByIdAndUpdate(
       userId,
-      { $addToSet: { favorites: movie._id } }, // Use _id do filme
+      { $addToSet: { favorites: movie._id } },
       { new: true }
-    )
-    return { success: true };
+    );
+
+    const updatedUser = await User.findById(userId).populate('favorites');
+    
+    return { success: true, favorites: updatedUser.favorites };
   } catch (error) {
-    return { success: false };
+    return { success: false, message: error.message };
   }
 }
-
 export default Movie;

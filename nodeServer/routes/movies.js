@@ -108,19 +108,15 @@ router.get('/favorites', authenticateToken, async (req, res) => {
 router.post('/favorites', authenticateToken, async (req, res) => {
   try {
     const { id } = req.user;
-    const favoriteData = req.body
-    const user = await User.findById(id).populate('favorites')
-    if (!user) {
-      return res.status(400).json({ message: 'Usuário não encontrado!' });
-    }
+    const favoriteData = req.body;
     
-    if(addFavorite(user._id, favoriteData)){
-      return res.status(200).json({ success: true });
+    const result = await addFavorite(id, favoriteData);
+
+    if (result.success) {
+      return res.status(200).json({ favorites: result.favorites });
     } else {
-      return res.status(400).json({ success: false});
+      return res.status(400).json({ message: result.message || 'Não foi possível adicionar aos favorito.' });
     }
-
-
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
