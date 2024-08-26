@@ -10,6 +10,7 @@ import axios from "axios";
 
 import { UserContext } from "./UserContext";
 import { toast } from "react-toastify";
+import { MovieContext } from "./MovieContext";
 const FavoriteContext = createContext();
 
 function FavoriteProvider({ children }) {
@@ -19,22 +20,23 @@ function FavoriteProvider({ children }) {
   const [favoriteMovies, setFavoriteMovies] = useState([]);
   const [favoritesLoading, setFavoritesLoading] = useState(false);
   const [displayMovies, setDisplayMovies] = useState([]);
-  const [showModal, setShowModal] = useState(false);
+  const [showFavoriteModal, setFavoriteShowModal] = useState(false);
   const [modalMovie, setModalMovie] = useState(null);
 
   const { token, tokenWasValidated } = useContext(UserContext);
+  const { changeModal } = useContext(MovieContext);
 
-  const changeModal = (newValue) => {
-    setShowModal(newValue);
+  const changeFavoriteModal = (newValue) => {
+    setFavoriteShowModal(newValue);
   };
 
   const changeModalMovie = (movie) => {
     if (movie) {
       setModalMovie(movie);
-      changeModal(true);
+      changeFavoriteModal(true);
     } else {
       setModalMovie(null);
-      changeModal(false);
+      changeFavoriteModal(false);
     }
   };
 
@@ -87,8 +89,8 @@ function FavoriteProvider({ children }) {
     try {
       const response = await axios.post(
         "http://localhost:5000/movies/favorites",
-        { 
-          movieData,
+        movieData,
+        {
           headers: {
             Authorization: "Bearer " + token,
           },
@@ -97,8 +99,10 @@ function FavoriteProvider({ children }) {
       const { success } = response.data;
       if (success) {
         toast.success('Filme adicionado na lista de favoritos')
+        changeModal(false)
         fetchFavoriteMovies()
       } else {
+        changeModal(false)
         toast.error('Erro ao salvar filme na lista de favoritos')
       }
     } catch (error) {
@@ -106,7 +110,7 @@ function FavoriteProvider({ children }) {
     } finally {
       setFavoritesLoading(false);
     }
-  }, [token, tokenWasValidated,fetchFavoriteMovies])
+  }, [token, tokenWasValidated, fetchFavoriteMovies, changeModal])
 
   // const changePage = useCallback(
   //   (newPage) => {
@@ -145,8 +149,8 @@ function FavoriteProvider({ children }) {
         search,
         changeSearch,
         searchMovies,
-        showModal,
-        changeModal,
+        showFavoriteModal,
+        changeFavoriteModal,
         modalMovie,
         changeModalMovie,
         favoriteMovies,

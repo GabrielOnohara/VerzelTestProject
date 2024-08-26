@@ -2,10 +2,11 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Container, Row, Col } from "react-bootstrap";
 
+import "./Home.css";
 import { UserContext } from "../../contexts/UserContext";
 import { MovieContext } from "../../contexts/MovieContext";
 import verzelLogo from "../../assets/logo2.jpg";
-import "./Home.css";
+import { FavoriteContext } from "../../contexts/FavoriteContext";
 import NavBar from "./NavBar";
 import MovieCard from "./MovieCard";
 import MoviePagination from "./MoviePagination";
@@ -35,6 +36,10 @@ const Home = () => {
     changeModalMovie,
     modalMovie,
   } = useContext(MovieContext);
+
+  const {
+    addToFavoriteMovies
+  } = useContext(FavoriteContext)
 
   if (!tokenWasValidated && token)
     return (
@@ -69,6 +74,7 @@ const Home = () => {
         showModal={showModal}
         changeModal={changeModal}
         modalMovie={modalMovie}
+        modalAction={addToFavoriteMovies}
       />
       <NavBar user={user} />
       <Container className="homeContent pt-5">

@@ -21,8 +21,8 @@ const Favorites = () => {
   const {
     favoritesLoading,
     displayMovies,
-    showModal,
-    changeModal,
+    showFavoriteModal,
+    changeFavoriteModal,
     modalMovie,
     changeModalMovie,
     search,
@@ -60,8 +60,8 @@ const Favorites = () => {
   return (
     <div className="favorites pt-4">
       <MovieModal
-        showModal={showModal}
-        changeModal={changeModal}
+        showModal={showFavoriteModal}
+        changeModal={changeFavoriteModal}
         modalMovie={modalMovie}
       />
       <NavBar user={user} />
@@ -96,13 +96,6 @@ const Favorites = () => {
             )}
           </Row>
         </Container>
-        {/* {!loadingMovies && displayMoviesTotalPages > 0 && (
-          <MoviePagination
-            changePage={changePage}
-            page={page}
-            displayMoviesTotalPages={displayMoviesTotalPages}
-          />
-        )} */}
       </Container>
     </div>
   );

@@ -115,9 +115,9 @@ router.post('/favorites', authenticateToken, async (req, res) => {
     }
     
     if(addFavorite(user._id, favoriteData)){
-      return res.status(200).json({ sucess: true });
+      return res.status(200).json({ success: true });
     } else {
-      return res.status(400).json({ sucess: false});
+      return res.status(400).json({ success: false});
     }
 
 
