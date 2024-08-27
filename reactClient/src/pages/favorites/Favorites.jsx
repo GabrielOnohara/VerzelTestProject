@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Container, Row, Col } from "react-bootstrap";
 import { UserContext } from "../../contexts/UserContext";
