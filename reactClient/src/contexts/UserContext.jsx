@@ -39,7 +39,7 @@ function UserProvider({ children }) {
 
         const { token } = response.data;
         auth(token)
-        const { username, id }= jwtDecode.jwtDecode(token)
+        const { username, id } = jwtDecode.jwtDecode(token)
         login({username, id})
       } catch {
         auth(null)

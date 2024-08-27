@@ -4,6 +4,7 @@ import axios from "axios";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import * as jwtDecode from 'jwt-decode';
 
 import verzelLogo from "../../assets/logo2.jpg";
 import "./Register.css";
@@ -49,9 +50,11 @@ function Register() {
       });
 
       const { token } = response.data;
+      const tokenData = jwtDecode.jwtDecode(token)
       auth(token);
       login({
-        username,
+        username: tokenData.username,
+        id: tokenData.id,
         email,
       });
 
