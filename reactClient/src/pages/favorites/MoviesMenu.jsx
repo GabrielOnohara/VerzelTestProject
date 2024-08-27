@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 const MoviesMenu = ({ searchMovies, search, changeSearch, user }) => {
 
   const handleShareClick = async () => {
-    const url = import.meta.env.VITE_APP_API_URL + `/favorites/${user.id.split(' ').join('+')}`;
+    const url = window.location.origin + `/favorites/${user}`;
     
     try {
       await navigator.clipboard.writeText(url);
@@ -56,7 +56,7 @@ MoviesMenu.propTypes = {
   searchMovies: PropTypes.func.isRequired,
   changeSearch: PropTypes.func.isRequired,
   search: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.string.isRequired
 };
 
 export default MoviesMenu;

@@ -6,14 +6,17 @@ import { SharedContext } from "../../contexts/SharedContext";
 import verzelLogo from "../../assets/logo2.jpg";
 import NavBar from "./NavBar";
 import MovieCard from "../home/MovieCard";
-import MovieModal from "../shared/MovieModal";
+import MovieModal from "./MovieModal";
+import MoviesMenu from "../favorites/MoviesMenu";
 import "../favorites/Favorites.css";
-
 
 const Shared = () => {
   const { userId } = useParams();
 
   const {
+    search,
+    changeSearch,
+    searchMovies,
     sharedLoading,
     showSharedModalMovies,
     changeSharedModal,
@@ -21,11 +24,12 @@ const Shared = () => {
     changeShareModalMovie,
     changeId,
     sharedMovies,
+    displayMovies,
   } = useContext(SharedContext);
 
-  useEffect(()=>{
-    changeId(userId)
-  },[changeId, userId])
+  useEffect(() => {
+    changeId(userId);
+  }, [changeId, userId]);
 
   if (sharedLoading)
     return (
@@ -42,21 +46,20 @@ const Shared = () => {
       </div>
     );
 
-    if ((sharedMovies || []).length == 0)
-      return (
-        <div className="homeTokenInvalid">
-          <div>
-            <img
-              src={verzelLogo}
-              className="logo2 my-4"
-              alt="Verzel Movies logo"
-            />
-          </div>
-          <h1>Lista vazia</h1>
-          <p>Erro ao buscar lista</p>
+  if ((sharedMovies || []).length == 0)
+    return (
+      <div className="homeTokenInvalid">
+        <div>
+          <img
+            src={verzelLogo}
+            className="logo2 my-4"
+            alt="Verzel Movies logo"
+          />
         </div>
-      );
-
+        <h1>Lista vazia</h1>
+        <p>Erro ao buscar lista</p>
+      </div>
+    );
 
   return (
     <div className="favorites pt-4">
@@ -67,11 +70,12 @@ const Shared = () => {
       />
       <NavBar />
       <Container className="homeContent pt-5">
-        {/* <MoviesMenu
+        <MoviesMenu
           search={search}
           changeSearch={changeSearch}
           searchMovies={searchMovies}
-        /> */}
+          user={userId}
+        />
         <Container className="moviesSection">
           <Row>
             {sharedLoading ? (
@@ -86,8 +90,8 @@ const Shared = () => {
                 </div>
               </Col>
             ) : (
-              Array((sharedMovies || []).length > 0) &&
-              (sharedMovies || []).map((movie, index) => (
+              Array((displayMovies || []).length > 0) &&
+              (displayMovies || []).map((movie, index) => (
                 <MovieCard
                   key={index}
                   movie={movie}

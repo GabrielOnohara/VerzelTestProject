@@ -72,7 +72,7 @@ const Favorites = () => {
           search={search}
           changeSearch={changeSearch}
           searchMovies={searchMovies}
-          user={user}
+          user={user.id}
         />
         <Container className="moviesSection">
           <Row>
