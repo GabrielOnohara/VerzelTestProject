@@ -15,7 +15,7 @@ const MoviesMenu = ({ searchMovies, search, changeSearch, user }) => {
     
     try {
       await navigator.clipboard.writeText(url);
-      toast.info('Link compartilhamento de copiado!')
+      toast.info('Link de compartilhamento copiado!')
     } catch (err) {
       console.error("Falha ao copiar para a área de transferência: ", err);
     }
